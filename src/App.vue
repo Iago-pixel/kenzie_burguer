@@ -1,18 +1,39 @@
 <template>
-  <TheHeader />
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <TheHeader @openModal="openModal()"/>
+  <ListProducts />
+  <base-modal @closeModal="closeModal()" v-if="modal"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ListProducts from './components/Products/ListProducts.vue';
 import TheHeader from './components/TheHeader.vue';
+import BaseModal from './components/Modal/BaseModal.vue';
+import axios from 'axios';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      modal: false
+    }
+  },
   components: {
-    HelloWorld,
-    TheHeader
+    ListProducts,
+    TheHeader,
+    BaseModal
+  },
+  methods: {
+    openModal() {
+      this.modal = true
+    },
+    closeModal() {
+      this.modal = false
+    }
+  },
+  created() {
+    axios.get('products').then((response) => {
+        this.$store.commit('storeProducts', response.data);
+    })
   }
 }
 </script>
