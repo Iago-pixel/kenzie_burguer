@@ -8,7 +8,7 @@
             </ul>
             <div class="line"></div>
             <div class="total-box">
-                <p class="total">Total</p><p class="price">{{ $store.state.total.totalString}}</p>
+                <p class="total">Total</p><p class="price">{{ $store.getters.total }}</p>
             </div>
             <AppButton class="remove-all-btn" @clickBtn="removeAll()">Remover todos</AppButton>
         </div>
